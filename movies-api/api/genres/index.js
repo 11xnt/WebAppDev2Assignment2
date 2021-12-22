@@ -1,4 +1,5 @@
 import express from 'express';
+import Genre from "./genreModel";
 
 const router = express.Router();
 
