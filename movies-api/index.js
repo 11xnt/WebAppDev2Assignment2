@@ -1,3 +1,5 @@
+import session from 'express-session';
+import authenticate from './authenticate';
 import './db';
 import './seedData'
 import dotenv from 'dotenv';
@@ -17,13 +19,20 @@ const errHandler = (err, req, res, next) => {
     res.status(500).send(`Hey!! You caught the bug 👍👍. Message me with the error: ${err.stack} so I can fix it`);
 };
 
+//session middleware
+app.use(session({
+    secret: 'ilikecake',
+    resave: true,
+    saveUninitialized: true
+}));
+
 const app = express();
 
 const port = process.env.PORT;
 
 app.use(express.json());
 app.use('/api/genres', genresRouter);
-app.use('/api/movies', moviesRouter);
+app.use('/api/movies', authenticate, moviesRouter);
 app.use('/api/users', usersRouter);
 
 app.listen(port, () => {
