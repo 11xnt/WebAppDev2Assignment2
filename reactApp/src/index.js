@@ -22,6 +22,7 @@ import SignUpPage from "./signupPage";
 import LoginPage from "./loginPage";
 import AuthHeader from "./authHeader";
 
+
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {

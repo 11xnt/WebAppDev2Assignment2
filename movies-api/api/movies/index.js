@@ -3,12 +3,7 @@ import asyncHandler from 'express-async-handler';
 import uniqid from 'uniqid'
 import express from 'express';
 import { movies, movieReviews, movieDetails } from './moviesData';
-import {
-    getUpcomingMovies
-} from '../tmdb-api';
-
-import movieModel from './movieModel';
-import asyncHandler from 'express-async-handler';
+import { getUpcomingMovies } from '../tmdb-api';
 
 const router = express.Router();
 

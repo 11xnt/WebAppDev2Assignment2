@@ -20,6 +20,17 @@ async function loadUsers() {
     }
 }
 
+async function loadGenres() {
+    console.log('load genre Data');
+    try {
+        await genreModel.deleteMany();
+        await genreModel.collection.insertMany(genres);
+        console.info(`${genres.length} genres were successfully stored.`);
+    } catch (err) {
+        console.error(`failed to Load genre Data: ${err}`);
+    }
+}
+
 // deletes all movies documents in collection and inserts test data
 export async function loadMovies() {
     console.log('load seed data');

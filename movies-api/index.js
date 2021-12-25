@@ -1,12 +1,12 @@
-import session from 'express-session';
-import passport from './authenticate';
-import './db';
 import './seedData'
+import './db';
 import dotenv from 'dotenv';
 import express from 'express';
 import moviesRouter from './api/movies';
-import usersRouter from './api/users';
 import genresRouter from './api/genres';
+import usersRouter from './api/users';
+import session from 'express-session';
+import passport from './authenticate';
 
 dotenv.config();
 
@@ -19,17 +19,18 @@ const errHandler = (err, req, res, next) => {
     res.status(500).send(`Hey!! You caught the bug 👍👍. Message me with the error: ${err.stack} so I can fix it`);
 };
 
-//session middleware
-app.use(passport.initialize());
-
 const app = express();
 
 const port = process.env.PORT;
+
+//session middleware
+app.use(passport.initialize());
 
 app.use(express.json());
 app.use('/api/genres', genresRouter);
 app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
 app.use('/api/users', usersRouter);
+app.use(errHandler);
 
 app.listen(port, () => {
     console.info(`Server running at ${port}`);
