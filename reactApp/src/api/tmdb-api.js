@@ -79,6 +79,7 @@ export const getMovieImages = ({ queryKey }) => {
             throw error
         });
 };
+
 export const getTvShowImages = ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;

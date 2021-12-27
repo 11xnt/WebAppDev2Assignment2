@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler';
 import uniqid from 'uniqid'
 import express from 'express';
 import { movies, movieReviews, movieDetails } from './moviesData';
-import { getUpcomingMovies } from '../tmdb-api';
+import { getUpcomingMovies, getMovies} from '../tmdb-api';
 
 const router = express.Router();
 
@@ -50,7 +50,6 @@ router.get('/:id/reviews', (req, res) => {
 //Post a movie review
 router.post('/:id/reviews', (req, res) => {
     const id = parseInt(req.params.id);
-
     if (movieReviews.id == id) {
         req.body.created_at = new Date();
         req.body.updated_at = new Date();
@@ -65,9 +64,45 @@ router.post('/:id/reviews', (req, res) => {
     }
 });
 
+// gets upcoming movies
 router.get('/tmdb/upcoming', asyncHandler( async(req, res) => {
     const upcomingMovies = await getUpcomingMovies();
     res.status(200).json(upcomingMovies);
 }));
+
+// gets movies from api
+router.get('/tmdb/moviesList', asyncHandler( async(req, res) => {
+    const moviesList = await getMovies();
+    res.status(200).json(moviesList);
+}));
+
+
+
+// // gets movie details from api
+// router.get('/:id', asyncHandler( async(req, res) => {
+//     const id = parseInt(req.params.id);
+//     const movie = await getMovie(id);
+//     res.status(200).json(movie);
+// }));
+//
+// // gets movie genres from api
+// router.get('/', asyncHandler( async(req, res) => {
+//     const genres = await getGenres();
+//     res.status(200).json(genres);
+// }));
+//
+// // gets movie images  from api
+// router.get('/:id/images', asyncHandler( async(req, res) => {
+//     const id = parseInt(req.params.id);
+//     const movieImages = await getMovieImages(id);
+//     res.status(200).json(movieImages);
+// }));
+
+// gets movie reviews from api
+// router.get('/:id/reviews', asyncHandler( async(req, res) => {
+//     const id = parseInt(req.params.id);
+//     const movieReviews = await getMovieReviews(id);
+//     res.status(200).json(movieReviews);
+// }));
 
 export default router;
