@@ -4,6 +4,8 @@ import { useQuery } from 'react-query'
 import Spinner from '../components/spinner'
 import {getMovies} from '../api/tmdb-api'
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
+import { useContext} from 'react';
+import { MoviesContext } from '../contexts/moviesContext';
 
 
 const HomePage = (props) => {
@@ -18,6 +20,7 @@ const HomePage = (props) => {
     if (isError) {
         return <h1>{error.message}</h1>
     }
+
     const movies = data.results;
 
     // Redundant, but necessary to avoid app crashing.

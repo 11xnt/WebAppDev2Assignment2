@@ -8,6 +8,7 @@ import {Button, FormControlLabel, FormLabel, Radio, RadioGroup} from "@material-
 import FormControl from "@material-ui/core/FormControl";
 import {QueryClient} from "react-query";
 
+
 const useStyles = makeStyles({
     root: {
         padding: "20px",
@@ -29,6 +30,7 @@ export const handleSort = (event) => {
 
     }
 }
+
 
 function MovieListPageTemplate({ movies, title, action }) {
     const classes = useStyles();
@@ -82,5 +84,6 @@ function MovieListPageTemplate({ movies, title, action }) {
 
         </Grid>
     );
+
 }
 export default MovieListPageTemplate;
