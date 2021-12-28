@@ -1,6 +1,8 @@
 import React from 'react';
 import { useContext} from 'react';
 import { MoviesContext } from './contexts/moviesContext';
+import PageTemplate from "./components/templateMovieListPage";
+import AddToFavoritesIcon from "./components/cardIcons/addToFavorites";
 
 export const PublicPage = () => {
     return <h2>Public page</h2>
@@ -10,9 +12,27 @@ export const Movies = () => {
     const context = useContext(MoviesContext);
     return <>
         <h2>Movies Data </h2>
-        <div>
-            {context.movies.results.map(movie => { return <>{movie.id},{movie.title}<br /></> })}
-        </div>
+        <PageTemplate
+            title="Discover Movies"
+            movies={context.movies.results}
+            action={(movie) => {
+                return <AddToFavoritesIcon movie={movie} />
+            }}
+        />
+    </>
+}
+
+export const Upcoming = () => {
+    const context = useContext(MoviesContext);
+    return <>
+        <h2>Movies Data </h2>
+        <PageTemplate
+            title="Discover Movies"
+            movies={context.movies.results}
+            action={(movie) => {
+                return <AddToFavoritesIcon movie={movie} />
+            }}
+        />
     </>
 }
 

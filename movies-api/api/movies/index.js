@@ -11,8 +11,11 @@ router.get('/', asyncHandler(async (req, res) => {
     let { page = 1, limit = 10 } = req.query; // destructure page and limit and set default values
     [page, limit] = [+page, +limit]; //trick to convert to numeric (req.query will contain string values)
 
-    const totalDocumentsPromise = movieModel.estimatedDocumentCount(); //Kick off async calls
-    const moviesPromise = movieModel.find().limit(limit).skip((page - 1) * limit);
+    const moviesList = await getMovies();
+    res.status(200).json(moviesList);
+
+    const totalDocumentsPromise = moviesList.estimatedDocumentCount(); //Kick off async calls
+    const moviesPromise = moviesList.find().limit(limit).skip((page - 1) * limit);
 
     const totalDocuments = await totalDocumentsPromise; //wait for the above promises to be fulfilled
     const movies = await moviesPromise;
@@ -71,7 +74,7 @@ router.get('/movies/upcoming', asyncHandler( async(req, res) => {
 }));
 
 // gets movies from api
-router.get('/tmdb/movies', asyncHandler( async(req, res) => {
+router.get('/api/movies', asyncHandler( async(req, res) => {
     const moviesList = await getMovies();
     res.status(200).json(moviesList);
 }));
