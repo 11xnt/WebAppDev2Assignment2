@@ -60,6 +60,25 @@ router.get('/discover', asyncHandler( async(req, res) => {
     res.status(200).json(returnObject);
 }));
 
+// gets top rated movies from api
+router.get('/toprated', asyncHandler( async(req, res) => {
+    let { page = 1, limit = 10 } = req.query; // destructure page and limit and set default values
+    [page, limit] = [+page, +limit]; //trick to convert to numeric (req.query will contain string values)
+
+    const topRatedMovies = await getTopRatedMovies();
+    res.status(200).json(topRatedMovies);
+
+    const totalDocumentsPromise1 = topRatedMovies.estimatedDocumentCount(); //Kick off async calls
+    const moviesPromise1 = topRatedMovies.find().limit(limit).skip((page - 1) * limit);
+
+    const totalDocuments1 = await totalDocumentsPromise1; //wait for the above promises to be fulfilled
+    const movies1 = await moviesPromise1;
+
+    const returnObject = { page: page, total_pages: Math.ceil(totalDocuments1 / limit), total_results: totalDocuments1, results: movies1 };//construct return Object and insert into response object
+
+    res.status(200).json(returnObject);
+}));
+
 // Get movie details
 router.get('/:id', asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
@@ -110,11 +129,6 @@ router.get('/api/movies', asyncHandler( async(req, res) => {
     res.status(200).json(moviesList);
 }));
 
-// gets top rated movies from api
-router.get('/tmdb/toprated', asyncHandler( async(req, res) => {
-    const topMovies = await getTopRatedMovies();
-    res.status(200).json(topMovies);
-}));
 
 
 
