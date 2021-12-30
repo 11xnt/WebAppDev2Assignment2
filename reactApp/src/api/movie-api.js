@@ -57,36 +57,22 @@ export const getMovie = (args) => {
     ).then(res => res.json());
 };
 
-export const getGenres = async () => {
+export const getGenres = () => {
     return fetch(
-        "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-        process.env.REACT_APP_TMDB_KEY +
-        "&language=en-US"
-    ).then( (response) => {
-        if (!response.ok) {
-            throw new Error(response.json().message);
+        '/api/genres/genres',{headers: {
+                'Authorization': window.localStorage.getItem('token')
+            }
         }
-        return response.json();
-    })
-        .catch((error) => {
-            throw error
-        });
+    ).then(res => res.json());
 };
 
 export const getTvGenres = async () => {
-        return fetch(
-            "https://api.themoviedb.org/3/genre/tv/list?api_key=" +
-            process.env.REACT_APP_TMDB_KEY +
-            "&language=en-US"
-        ).then( (response) => {
-            if (!response.ok) {
-                throw new Error(response.json().message);
+    return fetch(
+        '/api/genres/tvGenres',{headers: {
+                'Authorization': window.localStorage.getItem('token')
             }
-            return response.json();
-        })
-            .catch((error) => {
-                throw error
-            });
+        }
+    ).then(res => res.json());
     };
 
 export const getMovieImages = (args) => {

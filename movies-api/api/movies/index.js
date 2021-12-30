@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler';
 import uniqid from 'uniqid'
 import express from 'express';
 import { movies, movieReviews, movieDetails } from './moviesData';
-import {getUpcomingMovies, getMovies, getTopRatedMovies, getMovie, getMovieImages, getMovieReviews} from './tmdb-api';
+import {getUpcomingMovies, getMovies, getTopRatedMovies, getMovie, getMovieImages, getMovieReviews, getGenres} from './tmdb-api';
 
 
 const router = express.Router();
@@ -104,6 +104,7 @@ router.get('/:id/movieImages', asyncHandler(async (req, res) => {
 // Get movie reviews
 router.get('/:id/movieReviews', asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
+    const movieReviews = await getMovieImages(id);
     // find reviews in list
     if (movieReviews.id == id) {
         res.status(200).json(movieReviews);
@@ -114,6 +115,23 @@ router.get('/:id/movieReviews', asyncHandler(async (req, res) => {
         });
     }
 }));
+
+//Post a movie review
+router.post('/:id/movieReviews', (req, res) => {
+    const id = getMovieReviews(args);
+    if (movieReviews.id == id) {
+        req.body.created_at = new Date();
+        req.body.updated_at = new Date();
+        req.body.id = uniqid();
+        movieReviews.results.push(req.body); //push the new review onto the list
+        res.status(201).json(req.body);
+    } else {
+        res.status(404).json({
+            message: 'The resource you requested could not be found.',
+            status_code: 404
+        });
+    }
+});
 
 // // Get movie reviews
 // router.get('/:id/reviews', (req, res) => {
@@ -129,28 +147,6 @@ router.get('/:id/movieReviews', asyncHandler(async (req, res) => {
 //     }
 // });
 
-// //Post a movie review
-// router.post('/:id/reviews', (req, res) => {
-//     const id = parseInt(req.params.id);
-//     if (movieReviews.id == id) {
-//         req.body.created_at = new Date();
-//         req.body.updated_at = new Date();
-//         req.body.id = uniqid();
-//         movieReviews.results.push(req.body); //push the new review onto the list
-//         res.status(201).json(req.body);
-//     } else {
-//         res.status(404).json({
-//             message: 'The resource you requested could not be found.',
-//             status_code: 404
-//         });
-//     }
-// });
-
-
-
-
-
-
 // // gets movie details from api
 // router.get('/:id', asyncHandler( async(req, res) => {
 //     const id = parseInt(req.params.id);
@@ -158,12 +154,7 @@ router.get('/:id/movieReviews', asyncHandler(async (req, res) => {
 //     res.status(200).json(movie);
 // }));
 //
-// // gets movie genres from api
-// router.get('/', asyncHandler( async(req, res) => {
-//     const genres = await getGenres();
-//     res.status(200).json(genres);
-// }));
-//
+
 // // gets movie images  from api
 // router.get('/:id/images', asyncHandler( async(req, res) => {
 //     const id = parseInt(req.params.id);
