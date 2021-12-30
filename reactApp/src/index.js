@@ -52,8 +52,8 @@ const App = () => {
                                 <PrivateRoute exact path="/movies/toprated" component={TopRatedMoviesPage}/>
                                 <PrivateRoute path="/movies/:id" component={MovieDetailsPage}/>
                                 <PrivateRoute exact path="/tvshows/favorites" component={FavoriteTvsPage}/>
-                                <Route path="/tvshows/:id" component={TvPage}/>
-                                <Route path="/tvshows" component={tvHomePage}/>
+                                <PrivateRoute path="/tvshows/:id" component={TvPage}/>
+                                <PrivateRoute path="/tvshows" component={tvHomePage}/>
                                 <Route path="/signup" component={SignUpPage}/>
                                 <Route path="/login" component={LoginPage}/>
                                 <Route path="/public" component={PublicPage}/>
