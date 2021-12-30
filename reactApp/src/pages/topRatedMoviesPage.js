@@ -3,7 +3,7 @@ import PageTemplate from "../components/templateMovieListPage";
 import { useQuery } from 'react-query'
 import Spinner from '../components/spinner'
 import AddToWatchListIcon from '../components/cardIcons/addToWatchList'
-import { getTopRatedMovies } from "../api/tmdb-api";
+import { getTopRatedMovies } from "../api/movie-api";
 
 const TopRatedMoviesPage = (props) => {
     const {  data, error, isLoading, isError }  = useQuery('discover1', getTopRatedMovies)

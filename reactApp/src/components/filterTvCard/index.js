@@ -12,7 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
 import {useQuery} from "react-query";
-import {getTvGenres} from "../../api/tmdb-api";
+import {getTvGenres} from "../../api/movie-api";
 import Spinner from "../spinner";
 
 const useStyles = makeStyles((theme) => ({

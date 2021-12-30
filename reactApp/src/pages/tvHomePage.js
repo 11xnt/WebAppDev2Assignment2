@@ -1,6 +1,6 @@
 import React from "react";
 import {useQuery} from "react-query";
-import {getTvShows} from "../api/tmdb-api";
+import {getTvShows} from "../api/movie-api";
 import Spinner from "../components/spinner";
 import PageTemplate from "../components/templateTvListPage";
 import AddToFavoritesIconTV from "../components/cardIcons/addToFavoritesTV";

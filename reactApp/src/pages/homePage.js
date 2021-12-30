@@ -2,7 +2,7 @@ import React from "react";
 import PageTemplate, {handleSort} from "../components/templateMovieListPage";
 import { useQuery } from 'react-query'
 import Spinner from '../components/spinner'
-import {getMovies} from '../api/tmdb-api'
+import {getMovies} from "../api/movie-api";
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import { useContext} from 'react';
 import { MoviesContext } from '../contexts/moviesContext';

@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { useQuery } from 'react-query'
 import Spinner from '../components/spinner'
 import AddToWatchListIcon from '../components/cardIcons/addToWatchList'
-import {getUpcomingMovies} from "../api/tmdb-api";
+import {getUpcomingMovies} from "../api/movie-api";
 
 const UpcomingMoviesPage = (props) => {
-    const {  data, error, isLoading, isError }  = useQuery('discover3', getUpcomingMovies)
+    const {  data, error, isLoading, isError }  = useQuery('discover', getUpcomingMovies)
 
     if (isLoading) {
         return <Spinner />
