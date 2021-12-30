@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Redirect, Switch, Link } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import {PublicPage, Movies, Upcoming, MovieDetails} from "./pages";
 import tvHomePage from "./pages/tvHomePage";
-import MoviePage from "./pages/movieDetailsPage";
 import TvPage from "./pages/tvDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 import FavoriteTvsPage from "./pages/favoriteTvsPage";
@@ -22,6 +21,7 @@ import PrivateRoute from "./privateRoute";
 import SignUpPage from "./signupPage";
 import LoginPage from "./loginPage";
 import AuthHeader from "./authHeader";
+import MovieDetailsPage from "./pages/movieDetailsPage";
 
 
 const queryClient = new QueryClient({
@@ -45,12 +45,12 @@ const App = () => {
                         <TvContextProvider>
                             <Switch>
                                 <Route exact path="/reviews/form" component={AddMovieReviewPage}/>
-                                <Route path="/reviews/:id" component={MovieReviewPage}/>
+                                <PrivateRoute path="/movies/:id/reviews" component={MovieReviewPage}/>
                                 <PrivateRoute exact path="/movies/upcoming" component={UpcomingMoviesPage}/>
                                 <PrivateRoute path="/discover" component={Movies}/>
                                 <PrivateRoute exact path="/movies/favorites" component={FavoriteMoviesPage}/>
                                 <PrivateRoute exact path="/movies/toprated" component={TopRatedMoviesPage}/>
-                                <Route path="/movies/:id" component={MovieDetails}/>
+                                <PrivateRoute path="/movies/:id" component={MovieDetailsPage}/>
                                 <PrivateRoute exact path="/tvshows/favorites" component={FavoriteTvsPage}/>
                                 <Route path="/tvshows/:id" component={TvPage}/>
                                 <Route path="/tvshows" component={tvHomePage}/>
