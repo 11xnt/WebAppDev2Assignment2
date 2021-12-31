@@ -8,8 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
-import { getMovieReviews } from "../../api/movie-api";
+import {getMovieReviews} from "../../api/movie-api";
 import { excerpt } from "../../util";
+import {setRef} from "@material-ui/core";
 
 const useStyles = makeStyles({
     table: {
@@ -20,20 +21,33 @@ const useStyles = makeStyles({
 export default function MovieReviews({ movie }) {
     const classes = useStyles();
     const [reviews, setReviews] = useState([]);
-
-    useEffect(() => {
+    useEffect(  () => {
         getMovieReviews(movie.id).then((reviews) => {
-            setReviews(reviews);
+            setReviews(reviews.results);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // //  let reviews = useState([]);
+    // const addToReviews = async (movie) => {
+    //     try {
+    //         let temp = [];
+    //         temp = await getMovieReviews(movie.id);
+    //         //console.log(temp);
+    //        // reviews.push(...temp.results);
+    //         setReviews([...temp.results,temp.id]);
+    //     } catch (error) {
+    //         console.log('error', error);
+    //     }
+    // }
+    // addToReviews(movie);
 
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="reviews table">
                 <TableHead>
                     <TableRow>
-                        <TableCell >Author</TableCell>
+                        <TableCell>Author</TableCell>
                         <TableCell align="center">Excerpt</TableCell>
                         <TableCell align="right">More</TableCell>
                     </TableRow>
@@ -44,8 +58,8 @@ export default function MovieReviews({ movie }) {
                             <TableCell component="th" scope="row">
                                 {r.author}
                             </TableCell>
-                            <TableCell >{excerpt(r.content)}</TableCell>
-                            <TableCell >
+                            <TableCell>{excerpt(r.content)}</TableCell>
+                            <TableCell>
                                 <Link
                                     to={{
                                         pathname: `/reviews/${r.id}`,

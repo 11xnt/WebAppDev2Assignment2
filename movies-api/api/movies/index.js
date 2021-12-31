@@ -104,7 +104,7 @@ router.get('/:id/movieImages', asyncHandler(async (req, res) => {
 // Get movie reviews
 router.get('/:id/movieReviews', asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
-    const movieReviews = await getMovieImages(id);
+    const movieReviews = await getMovieReviews(id);
     // find reviews in list
     if (movieReviews.id == id) {
         res.status(200).json(movieReviews);
@@ -117,28 +117,14 @@ router.get('/:id/movieReviews', asyncHandler(async (req, res) => {
 }));
 
 //Post a movie review
-router.post('/:id/movieReviews', (req, res) => {
-    const id = getMovieReviews(args);
-    if (movieReviews.id == id) {
-        req.body.created_at = new Date();
-        req.body.updated_at = new Date();
-        req.body.id = uniqid();
-        movieReviews.results.push(req.body); //push the new review onto the list
-        res.status(201).json(req.body);
-    } else {
-        res.status(404).json({
-            message: 'The resource you requested could not be found.',
-            status_code: 404
-        });
-    }
-});
-
-// // Get movie reviews
-// router.get('/:id/reviews', (req, res) => {
-//     const id = parseInt(req.params.id);
-//     // find reviews in list
+// router.post('/:id/movieReviews', (req, res) => {
+//     const id = getMovieReviews(req.params.id);
 //     if (movieReviews.id == id) {
-//         res.status(200).json(movieReviews);
+//         req.body.created_at = new Date();
+//         req.body.updated_at = new Date();
+//         req.body.id = uniqid();
+//         movieReviews.results.push(req.body); //push the new review onto the list
+//         res.status(201).json(req.body);
 //     } else {
 //         res.status(404).json({
 //             message: 'The resource you requested could not be found.',
@@ -147,26 +133,5 @@ router.post('/:id/movieReviews', (req, res) => {
 //     }
 // });
 
-// // gets movie details from api
-// router.get('/:id', asyncHandler( async(req, res) => {
-//     const id = parseInt(req.params.id);
-//     const movie = await getMovie(id);
-//     res.status(200).json(movie);
-// }));
-//
-
-// // gets movie images  from api
-// router.get('/:id/images', asyncHandler( async(req, res) => {
-//     const id = parseInt(req.params.id);
-//     const movieImages = await getMovieImages(id);
-//     res.status(200).json(movieImages);
-// }));
-
-// gets movie reviews from api
-// router.get('/:id/reviews', asyncHandler( async(req, res) => {
-//     const id = parseInt(req.params.id);
-//     const movieReviews = await getMovieReviews(id);
-//     res.status(200).json(movieReviews);
-// }));
 
 export default router;
