@@ -45,7 +45,10 @@ function TvListPageTemplate({ tvs, title, action }) {
                 </Grid>
                 <TvList action={action} tvs={displayedTvs}></TvList>
             </Grid>
+
+
         </Grid>
+
     );
 }
 export default TvListPageTemplate;

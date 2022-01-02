@@ -7,6 +7,7 @@ import MovieList from "../movieList";
 import {Button, FormControlLabel, FormLabel, Radio, RadioGroup} from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import {QueryClient} from "react-query";
+import {Pagination} from "@material-ui/lab";
 
 
 const useStyles = makeStyles({
@@ -35,7 +36,13 @@ export const handleSort = (event) => {
 function MovieListPageTemplate({ movies, title, action }) {
     const classes = useStyles();
     const [nameFilter, setNameFilter] = useState("");
+    const [pageFilter, setPageFilter] = useState("");
     const [genreFilter, setGenreFilter] = useState("0");
+    const [page, setPage] = React.useState(1);
+    const handlePageChange = (event, value) => {
+        setPage(value);
+        console.log(page);
+    };
     const genreId = Number(genreFilter);
 
     let displayedMovies = movies
@@ -50,6 +57,7 @@ function MovieListPageTemplate({ movies, title, action }) {
         if (type === "name") setNameFilter(value);
         else setGenreFilter(value);
     };
+
 
 
     return (
@@ -81,6 +89,8 @@ function MovieListPageTemplate({ movies, title, action }) {
                 </RadioGroup>
             </FormControl>
 
+            <Pagination className={classes.root} count={10} variant="outlined" color="primary" page={page} onChange={handlePageChange}>
+            </Pagination>
 
         </Grid>
     );

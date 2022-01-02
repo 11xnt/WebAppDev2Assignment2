@@ -42,11 +42,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@mui/material": "^5.2.6",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
     "@storybook/node-logger": "^6.2.9",
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9"
   },
-  "proxy":"http://localhost:80"
+  "proxy": "http://localhost:80"
 }

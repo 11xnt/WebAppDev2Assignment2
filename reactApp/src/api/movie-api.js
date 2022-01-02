@@ -20,7 +20,7 @@ export const signup = (username, password) => {
 
 export const getMovies = () => {
     return fetch(
-        '/api/movies/discover',{headers: {
+        `/api/movies/discover`,{headers: {
                 'Authorization': window.localStorage.getItem('token')
             }
         }
