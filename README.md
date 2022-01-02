@@ -106,21 +106,72 @@ The routes are protected using JWT tokens which a user receieves from logging in
 ​
 ## Integrating with React App
 ​
-Describe how you integrated your React app with the API. Perhaps link to the React App repo and give an example of an API call from React App. For example: 
+All of the API calls follow mostly the same process.
 ​
+For example, when the API in the React app is made, it will execute these lines of code:
 ~~~Javascript
 export const getMovies = () => {
-  return fetch(
-     '/api/movies',{headers: {
-       'Authorization': window.localStorage.getItem('token')
-    }
-  }
-  )
-    .then(res => res.json())
-    .then(json => {return json.results;});
+    return fetch(
+        `/api/movies/discover`,{headers: {
+                'Authorization': window.localStorage.getItem('token')
+            }
+        }
+    ).then(res => res.json());
 };
-​
 ~~~
+
+Since there is a proxy set up in the package.json file it will look on the port to find where to look next.
+
+Since it is looking for the '/api/movies/discover', it will look in the movies-api/api/movies folder to find the index.js which is located in there. Once there it will look for the router to match the '/discover' part of the request. Which it will run this bit of code:
+
+~~~Javascript
+router.get('/discover', asyncHandler( async(req, res) => {
+    let { page = 1, limit = 10 } = req.query; // destructure page and limit and set default values
+    [page, limit] = [+page, +limit]; //trick to convert to numeric (req.query will contain string values)
+
+    const movies = await getMovies();
+    res.status(200).json(movies);
+
+    const totalDocumentsPromise1 = movies.estimatedDocumentCount(); //Kick off async calls
+    const moviesPromise1 = movies.find().limit(limit).skip((page - 1) * limit);
+
+    const totalDocuments1 = await totalDocumentsPromise1; //wait for the above promises to be fulfilled
+    const movies1 = await moviesPromise1;
+
+    const returnObject = { page: page, total_pages: Math.ceil(totalDocuments1 / limit), total_results: totalDocuments1, results: movies1 };//construct return Object and insert into response object
+
+    res.status(200).json(returnObject);
+}));
+~~~
+
+This line: 
+```bat
+const movies = await getMovies();
+```
+is where it will check in the 
+```bat
+tmdb-api.js
+```
+file to execute the request from the TMDB API.
+
+~~~Javascript
+export const getMovies = () => {
+    return fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_KEY}&language=en-US&include_adult=false&page=1`
+    ).then((response) => {
+        if (!response.ok) {
+            throw new Error(response.json().message);
+        }
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
+        });
+};
+~~~
+
+​
+
 ​
 ## Extra features
 ​
