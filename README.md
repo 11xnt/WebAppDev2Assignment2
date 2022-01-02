@@ -4,13 +4,10 @@ Name: Allen Terescenco
 ​
 ## Features.
 ​
-...... A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** ......,
- 
- + Feature 1 - .... a statement of its purpose/objective ..... 
- + Feature 2 - .......
- + Feature 3 = ......
- + etc
- + etc
+ + API fetch to backend server to display: Upcoming movies, top rated movies, tv shows, movie reviews.
+ + Added TV show model with appropiate API file to seperate it from the movies API.
+ + Updated the genre model with an API file to fetch for genres relating to movies or TV shows.
+ + Attempted to implement pagination with buttons.
 ​
 ## Installation Requirements
 ​
@@ -80,6 +77,3 @@ export const getMovies = () => {
 ​
 . . Briefly explain any non-standard features, functional or non-functional, developed for the app.  
 ​
-## Independent learning
-​
-. . State the non-standard aspects of React/Express/Node (or other related technologies) that you researched and applied in this assignment . .  
