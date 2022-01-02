@@ -169,11 +169,3 @@ export const getMovies = () => {
         });
 };
 ~~~
-
-​
-
-​
-## Extra features
-​
-. . Briefly explain any non-standard features, functional or non-functional, developed for the app.  
-​
