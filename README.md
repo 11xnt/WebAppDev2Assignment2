@@ -85,12 +85,24 @@ Give an overview of your web API design, perhaps similar to the following:
 | /api/tvshows/{id}/tvImages | Gets a TV Show's images | N/A | N/A | N/A |
 | /api/users?action=register | N/A | Registers a user to the database | N/A | N/A |
 | /api/users | N/A | Logs in a user | N/A | N/A |
-| ... | ... | ... | ... | ...
 
 ​
 ​
 ## Security and Authentication
 Give details of authentication/ security implemented on the API(e.g. passport/sessions). Indicate which routes are protected.
+All but the homepage are privately protected. The reason for this design choice as the "guest" user can get a taster for the web application which will make them more inclinded to either register or log into the website.
+The routes are protected using JWT tokens which a user receieves from logging in. If a user is not logged into any of the following routes, they will be redirected to /login which then can redirect them to register if they click the link.
+
++ /movies/:id/reviews -> Movie reviews page
++ /movies/upcoming -> Upcoming movies page
++ /discover -> Movie discover page
++ /movies/favorites -> User's favourite movies page
++ /movies/toprated -> Top Rated movies page
++ /movies/:id -> Movie details page
++ /tvshows/favorites -> User's favourite TV shows page
++ /tvshows/:id -> TV Show details page
++ /tvshows -> TV Show discover page
+
 ​
 ## Integrating with React App
 ​
